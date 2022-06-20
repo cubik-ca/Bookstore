@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.17.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Messages\Bookstore.Shared.Messages\Bookstore.Shared.Messages.csproj" />
+    <ProjectReference Include="..\..\SharedKernel\Bookstore.SharedKernel\Bookstore.SharedKernel.csproj" />
+    <ProjectReference Include="..\Bookstore.EventSourcing\Bookstore.EventSourcing.csproj" />
+    <ProjectReference Include="..\Bookstore.EventStore\Bookstore.EventStore.csproj" />
+  </ItemGroup>
+
+</Project>

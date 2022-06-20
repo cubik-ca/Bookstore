@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUlid" Version="1.7.0" />
+    <PackageReference Include="RavenDB.Client" Version="5.3.102" />
+    <PackageReference Include="Serilog" Version="2.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedKernel\Bookstore.SharedKernel\Bookstore.SharedKernel.csproj" />
+    <ProjectReference Include="..\Bookstore.EventSourcing\Bookstore.EventSourcing.csproj" />
+    <ProjectReference Include="..\Bookstore.EventStore\Bookstore.EventStore.csproj" />
+  </ItemGroup>
+
+</Project>
