@@ -3,7 +3,6 @@ using Bookstore.SharedKernel;
 using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Paragon.Shared.Messages;
 using Serilog;
 
 namespace Bookstore.WebApi;
@@ -18,7 +17,7 @@ public abstract class CommandApi<T> : ControllerBase
     {
         _log = Log.ForContext<CommandApi<T>>();
         _bus = bus;
-        var principal = httpContext?.HttpContext?.User;
+        var principal = httpContext.HttpContext?.User;
         if (principal != null)
             token.Value = principal.Claims.SingleOrDefault(c => c.Type == "access_token")?.Value;
     }

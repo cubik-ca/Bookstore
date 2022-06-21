@@ -39,13 +39,12 @@ public class EsCheckpointStore : ICheckpointStore
 
     public Task StoreCheckpoint(ulong? position)
     {
-        var @event = new Checkpoint { Position = position };
+        var @event = new Checkpoint {Position = position};
         var preparedEvent = new EventData(
             Uuid.FromGuid(Guid.NewGuid()),
             "$checkpoint",
-            Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(@event)),
-            null);
-        return _connection.AppendToStreamAsync(_streamName, StreamRevision.None, new[] { preparedEvent },
+            Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(@event)));
+        return _connection.AppendToStreamAsync(_streamName, StreamRevision.None, new[] {preparedEvent},
             userCredentials: _credentials);
     }
 

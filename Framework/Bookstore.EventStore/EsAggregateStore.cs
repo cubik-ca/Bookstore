@@ -1,14 +1,13 @@
 using System.Reflection;
 using Bookstore.EventSourcing;
-using Bookstore.EventStore;
 using EventStore.Client;
-using StreamPosition = EventStore.Client.StreamPosition;
+using Serilog;
 
 namespace Bookstore.EventStore;
 
 public class EsAggregateStore : IAggregateStore
 {
-    private static readonly Serilog.ILogger Log = Serilog.Log.ForContext<EsAggregateStore>();
+    private static readonly ILogger Log = Serilog.Log.ForContext<EsAggregateStore>();
     private readonly EventStoreClient _connection;
     private readonly EventStoreService _service;
 
@@ -16,16 +15,6 @@ public class EsAggregateStore : IAggregateStore
     {
         _connection = connection;
         _service = service;
-    }
-
-    private static string GetStreamName<T>(AggregateId<T> aggregateId) where T : AggregateRoot<T>
-    {
-        return $"{typeof(T).Name}-{aggregateId}";
-    }
-
-    private static string GetStreamName<T>(T aggregate) where T : AggregateRoot<T>
-    {
-        return $"{typeof(T).Name}-{aggregate.Id}";
     }
 
     public async Task<bool> Exists<T>(AggregateId<T> aggregateId) where T : AggregateRoot<T>
@@ -40,7 +29,8 @@ public class EsAggregateStore : IAggregateStore
     {
         if (aggregateId == null) throw new ArgumentNullException(nameof(aggregateId));
         var stream = GetStreamName(aggregateId);
-        var aggregate = (T?)Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic, null, new object[] { aggregateId }, null)
+        var aggregate = (T?) Activator.CreateInstance(typeof(T), BindingFlags.Instance | BindingFlags.NonPublic, null,
+                            new object[] {aggregateId}, null)
                         ?? throw new Exception($"Could not create instance of {typeof(T).Name}");
         var page = _connection.ReadStreamAsync(Direction.Forwards, stream, StreamPosition.Start);
         Log.Debug($"Loading events for the aggregate {aggregate}");
@@ -58,5 +48,15 @@ public class EsAggregateStore : IAggregateStore
             Log.Debug($"Persisting event {change}");
         await _connection.AppendEvents(_service.Principal, streamName, aggregate.Version, changes);
         aggregate.ClearChanges();
+    }
+
+    private static string GetStreamName<T>(AggregateId<T> aggregateId) where T : AggregateRoot<T>
+    {
+        return $"{typeof(T).Name}-{aggregateId}";
+    }
+
+    private static string GetStreamName<T>(T aggregate) where T : AggregateRoot<T>
+    {
+        return $"{typeof(T).Name}-{aggregate.Id}";
     }
 }

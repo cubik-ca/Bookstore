@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Messages\Bookstore.Shared.Messages\Bookstore.Shared.Messages.csproj" />
     <ProjectReference Include="..\..\SharedKernel\Bookstore.SharedKernel\Bookstore.SharedKernel.csproj" />
     <ProjectReference Include="..\Bookstore.EventSourcing\Bookstore.EventSourcing.csproj" />
     <ProjectReference Include="..\Bookstore.EventStore\Bookstore.EventStore.csproj" />

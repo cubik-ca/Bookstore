@@ -4,8 +4,6 @@ namespace Bookstore.Domain.Subject.Country;
 
 public class Name : Value<Name>
 {
-    private string Value { get; set; }
-
     private Name(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -13,7 +11,15 @@ public class Name : Value<Name>
         Value = value;
     }
 
-    public static Name FromString(string? value) => new(value);
+    private string Value { get; }
 
-    public static implicit operator string?(Name? name) => name?.Value;
+    public static Name FromString(string? value)
+    {
+        return new(value);
+    }
+
+    public static implicit operator string?(Name? name)
+    {
+        return name?.Value;
+    }
 }

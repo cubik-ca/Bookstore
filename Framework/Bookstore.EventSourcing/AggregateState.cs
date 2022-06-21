@@ -27,7 +27,7 @@ public abstract class AggregateState<T> : IAggregateState<T> where T : class, ne
 
     public Result NoEvents()
     {
-        return new(this as T ?? throw new ArgumentException("Aggregate is of wrong type"),
+        return new Result(this as T ?? throw new ArgumentException("Aggregate is of wrong type"),
             new List<object>());
     }
 

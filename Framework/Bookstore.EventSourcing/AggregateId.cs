@@ -17,6 +17,6 @@ public abstract class AggregateId<T> : Value<AggregateId<T>>
 
     public override string ToString()
     {
-        return Value.ToString();
+        return Value;
     }
 }

@@ -4,8 +4,6 @@ namespace Bookstore.Domain.Subject.Country;
 
 public class ProvinceId : Value<ProvinceId>
 {
-    private int Value { get; }
-
     private ProvinceId(int? value)
     {
         if (!value.HasValue)
@@ -13,7 +11,15 @@ public class ProvinceId : Value<ProvinceId>
         Value = value.Value;
     }
 
-    public static ProvinceId FromInt(int? value) => new(value);
+    private int Value { get; }
 
-    public static implicit operator int?(ProvinceId? value) => value?.Value;
+    public static ProvinceId FromInt(int? value)
+    {
+        return new(value);
+    }
+
+    public static implicit operator int?(ProvinceId? value)
+    {
+        return value?.Value;
+    }
 }

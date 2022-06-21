@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=Development1!
+    ports:
+      - 27017:27017
+    tty: true
+    volumes:
+      - "C:/MongoDBData:/data/db"
+    restart: always
+  bookstore.ui.web.server:
+    image: ${DOCKER_REGISTRY-}bookstoreuiwebserver
+    build:
+      context: .
+      dockerfile: UI/Web/Bookstore/Bookstore/Server/Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - DOTNET_ENVIRONMENT=Development
+    restart: always

@@ -4,13 +4,13 @@ public abstract class AggregateRoot<T> : IInternalEventHandler where T : Aggrega
 {
     private readonly List<object> _changes = new();
 
-    public AggregateId<T> Id { get; protected set; }
-    public int Version { get; protected set; } = -1;
-
     protected AggregateRoot(AggregateId<T> id)
     {
         Id = id;
     }
+
+    public AggregateId<T> Id { get; protected set; }
+    public int Version { get; protected set; } = -1;
 
 
     void IInternalEventHandler.Handle(object @event)

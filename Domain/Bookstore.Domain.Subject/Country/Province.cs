@@ -5,15 +5,16 @@ namespace Bookstore.Domain.Subject.Country;
 
 public class Province : Entity<ProvinceId>
 {
-    public ProvinceAbbreviation? Abbreviation { get; private set; }
-    public ProvinceName? Name { get; private set; }
-
-    public Province(ProvinceId id, ProvinceAbbreviation abbreviation, ProvinceName name, Action<object> applier) : base(applier)
+    public Province(ProvinceId id, ProvinceAbbreviation abbreviation, ProvinceName name, Action<object> applier) :
+        base(applier)
     {
         Id = id;
         Abbreviation = abbreviation;
         Name = name;
     }
+
+    public ProvinceAbbreviation? Abbreviation { get; private set; }
+    public ProvinceName? Name { get; private set; }
 
     protected override void When(object @event)
     {

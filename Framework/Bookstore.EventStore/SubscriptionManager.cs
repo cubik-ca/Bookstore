@@ -1,27 +1,25 @@
 using Bookstore.EventSourcing;
 using EventStore.Client;
+using Serilog;
 
 namespace Bookstore.EventStore;
 
 public class SubscriptionManager
 {
-    private static readonly Serilog.ILogger Log = Serilog.Log.ForContext<SubscriptionManager>();
+    private static readonly ILogger Log = Serilog.Log.ForContext<SubscriptionManager>();
 
     private readonly ICheckpointStore _checkpointStore;
     private readonly EventStoreClient _connection;
-    private readonly string _name;
     private readonly ISubscription[] _subscriptions;
     private StreamSubscription? _subscription;
 
     public SubscriptionManager(
         EventStoreClient connection,
         ICheckpointStore checkpointStore,
-        string name,
         params ISubscription[] subscriptions)
     {
         _connection = connection;
         _checkpointStore = checkpointStore;
-        _name = name;
         _subscriptions = subscriptions;
     }
 
@@ -31,7 +29,8 @@ public class SubscriptionManager
         var position = await _checkpointStore.GetCheckpoint();
         Log.Debug($"Retrieved checkpoint {position}");
         _subscription =
-            await _connection.SubscribeToAllAsync(position == null ? FromAll.Start : FromAll.After(GetPosition()), EventAppeared);
+            await _connection.SubscribeToAllAsync(position == null ? FromAll.Start : FromAll.After(GetPosition()),
+                EventAppeared);
         Log.Debug("Subscribed to $all stream");
 
         Position GetPosition()

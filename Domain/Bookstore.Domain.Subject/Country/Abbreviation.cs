@@ -4,8 +4,6 @@ namespace Bookstore.Domain.Subject.Country;
 
 public class Abbreviation : Value<Abbreviation>
 {
-    private string Value { get; }
-
     private Abbreviation(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -13,7 +11,15 @@ public class Abbreviation : Value<Abbreviation>
         Value = value;
     }
 
-    public static Abbreviation FromString(string? value) => new(value);
+    private string Value { get; }
 
-    public static implicit operator string?(Abbreviation? value) => value?.Value;
+    public static Abbreviation FromString(string? value)
+    {
+        return new(value);
+    }
+
+    public static implicit operator string?(Abbreviation? value)
+    {
+        return value?.Value;
+    }
 }

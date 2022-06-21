@@ -5,10 +5,6 @@ namespace Bookstore.Domain.Subject.Country;
 
 public class Country : AggregateRoot<Country>
 {
-    public Abbreviation Abbreviation { get; private set; }
-    public Name Name { get; private set; }
-    public IList<Province> Provinces { get; private set; }
-
     public Country(
         CountryId id,
         Abbreviation abbreviation,
@@ -26,51 +22,67 @@ public class Country : AggregateRoot<Country>
         });
     }
 
+    public Abbreviation Abbreviation { get; private set; }
+    public Name Name { get; private set; }
+    public IList<Province> Provinces { get; private set; }
+
     public void SetAbbreviation(Abbreviation abbreviation)
-        => Apply(new Events.AbbreviationChanged
+    {
+        Apply(new Events.AbbreviationChanged
         {
             Id = Id,
             Abbreviation = abbreviation
         });
+    }
 
     public void SetName(Name name)
-        => Apply(new Events.NameChanged
+    {
+        Apply(new Events.NameChanged
         {
             Id = Id,
             Name = name
         });
+    }
 
     public void AddProvince(ProvinceId provinceId, ProvinceAbbreviation abbreviation, ProvinceName name)
-        => Apply(new Events.ProvinceAdded
+    {
+        Apply(new Events.ProvinceAdded
         {
             Id = Id,
             ProvinceId = provinceId,
             Abbreviation = abbreviation,
             Name = name
         });
+    }
 
     public void RemoveProvince(ProvinceId provinceId)
-        => Apply(new Events.ProvinceRemoved
+    {
+        Apply(new Events.ProvinceRemoved
         {
             Id = Id,
             ProvinceId = provinceId
         });
+    }
 
     public void SetProvinceAbbreviation(ProvinceId provinceId, ProvinceAbbreviation abbreviation)
-        => Apply(new Events.ProvinceAbbreviationChanged
+    {
+        Apply(new Events.ProvinceAbbreviationChanged
         {
             Id = Id,
             ProvinceId = provinceId,
             Abbreviation = abbreviation
         });
+    }
 
     public void SetProvinceName(ProvinceId provinceId, ProvinceName name)
-        => Apply(new Events.ProvinceNameChanged
+    {
+        Apply(new Events.ProvinceNameChanged
         {
             Id = Id,
             ProvinceId = provinceId,
             Name = name
         });
+    }
 
     protected override void EnsureValidState()
     {
@@ -94,7 +106,7 @@ public class Country : AggregateRoot<Country>
                 Name = Name.FromString(ev.Name);
                 break;
             case Events.ProvinceAdded ev:
-                Provinces.Add(new(
+                Provinces.Add(new Province(
                     ProvinceId.FromInt(ev.ProvinceId),
                     ProvinceAbbreviation.FromString(ev.Abbreviation),
                     ProvinceName.FromString(ev.Name),

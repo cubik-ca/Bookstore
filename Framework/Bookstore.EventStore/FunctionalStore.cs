@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Bookstore.EventSourcing;
-using Bookstore.EventStore;
 using EventStore.Client;
 
 namespace Bookstore.EventStore;
@@ -19,6 +18,12 @@ public class FunctionalStore : IFunctionalAggregateStore
         return Load<T>(id, (x, e) => x.When(x, e));
     }
 
+    Task IFunctionalAggregateStore.Save<T>(long version, AggregateState<T>.Result update)
+    {
+        return _connection.AppendEvents(Thread.CurrentPrincipal as ClaimsPrincipal, update.State.StreamName, version,
+            update.Events.ToArray());
+    }
+
     private async Task<T> Load<T>(Guid id, Func<T, object, T> when)
         where T : IAggregateState<T>, new()
     {
@@ -31,11 +36,5 @@ public class FunctionalStore : IFunctionalAggregateStore
             StreamPosition.FromInt64(Convert.ToInt64(position)));
         events.AddRange(await slice.Select(x => x.Deserialize()).ToArrayAsync());
         return events.Aggregate(state, when);
-    }
-
-    Task IFunctionalAggregateStore.Save<T>(long version, AggregateState<T>.Result update)
-    {
-        return _connection.AppendEvents(Thread.CurrentPrincipal as ClaimsPrincipal, update.State.StreamName, version,
-            update.Events.ToArray());
     }
 }

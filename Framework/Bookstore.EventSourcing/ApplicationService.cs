@@ -23,7 +23,7 @@ public abstract class ApplicationService<T> where T : AggregateRoot<T>
 
     private void When<TCommand>(Func<TCommand, Task> handler) where TCommand : class
     {
-        _handlers.Add(typeof(TCommand), c => handler((TCommand)c));
+        _handlers.Add(typeof(TCommand), c => handler((TCommand) c));
     }
 
     protected void CreateWhen<TCommand>(
@@ -53,8 +53,6 @@ public abstract class ApplicationService<T> where T : AggregateRoot<T>
             {
                 var aggregateId = getAggregateId(command);
                 var aggregate = await Store.Load(aggregateId);
-                if (aggregate == null)
-                    throw new InvalidOperationException($"Entity with id {aggregateId} cannot be found");
                 updater(aggregate, command);
                 await Store.Save(aggregate);
             }

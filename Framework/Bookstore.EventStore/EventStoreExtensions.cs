@@ -29,7 +29,7 @@ public static class EventStoreExtensions
                         Uuid.FromGuid(Guid.NewGuid()),
                         TypeMapper.GetTypeName(@event.GetType()) ?? throw new Exception("Type name not found"),
                         Serialize(@event),
-                        Serialize(new EventMetadata { User = user, ClrType = @event.GetType().FullName }))).ToArray();
+                        Serialize(new EventMetadata {User = user, ClrType = @event.GetType().FullName}))).ToArray();
         return connection.AppendToStreamAsync(streamName, StreamRevision.FromInt64(version), preparedEvents);
     }
 }

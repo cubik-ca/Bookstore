@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Bookstore.EventSourcing;
 
 public class Value<T> where T : Value<T>
 {
+    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     private static readonly Member[] Members = GetMembers().ToArray();
 
     public override bool Equals(object? obj)
@@ -27,7 +29,7 @@ public class Value<T> where T : Value<T>
     private static IEnumerable<object?> GetEnumerableValues(object? obj)
     {
         if (obj == null) throw new ArgumentNullException(nameof(obj));
-        var enumerator = ((IEnumerable)obj).GetEnumerator();
+        var enumerator = ((IEnumerable) obj).GetEnumerator();
         while (enumerator.MoveNext()) yield return enumerator.Current;
 
         throw new ArgumentNullException(nameof(obj));

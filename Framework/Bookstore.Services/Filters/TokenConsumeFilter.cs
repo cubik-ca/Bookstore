@@ -14,10 +14,11 @@ namespace Bookstore.Services.Filters;
 public class TokenConsumeFilter<T> : IFilter<ConsumeContext<T>>
     where T : class
 {
+    private readonly IConfiguration _configuration;
+
     // this should be the same reference as the hosted service, therefore we can set its principal
     private readonly EventStoreService _eventStoreService;
     private readonly Token _token;
-    private readonly IConfiguration _configuration;
 
     public TokenConsumeFilter(IConfiguration configuration, Token token, EventStoreService service)
     {
@@ -60,7 +61,8 @@ public class TokenConsumeFilter<T> : IFilter<ConsumeContext<T>>
                 throw new Exception("null identity??");
             using var httpClient = new HttpClient();
             // load the roles from the userinfo endpoint
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken?.RawData);
+            httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", accessToken.RawData);
             var claims = await httpClient.GetFromJsonAsync<Dictionary<string, object>>($"https://{domain}/userinfo");
             if (claims != null)
                 foreach (var (k, v) in claims)
@@ -68,7 +70,10 @@ public class TokenConsumeFilter<T> : IFilter<ConsumeContext<T>>
             _eventStoreService.Principal = (ClaimsPrincipal) Thread.CurrentPrincipal;
         }
         else
+        {
             throw new Exception("no claims principal??");
+        }
+
         await next.Send(context);
     }
 
