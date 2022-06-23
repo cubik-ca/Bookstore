@@ -22,6 +22,13 @@ public class Country : AggregateRoot<Country>
         });
     }
 
+    private Country(CountryId id) : base(id)
+    {
+        Abbreviation = Abbreviation.FromString("loading...");
+        Name = Name.FromString("loading...");
+        Provinces = new List<Province>();
+    }
+
     public Abbreviation Abbreviation { get; private set; }
     public Name Name { get; private set; }
     public IList<Province> Provinces { get; private set; }
@@ -83,6 +90,12 @@ public class Country : AggregateRoot<Country>
             Name = name
         });
     }
+
+    public void Remove()
+        => Apply(new Events.Removed
+        {
+            Id = Id
+        });
 
     protected override void EnsureValidState()
     {

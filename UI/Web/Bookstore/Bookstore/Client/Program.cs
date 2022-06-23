@@ -17,6 +17,10 @@ builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
 builder.Services.AddOidcAuthentication(options =>
 {
     builder.Configuration.Bind("Auth0", options.ProviderOptions);
+    options.ProviderOptions.DefaultScopes.Add("openid");
+    options.ProviderOptions.DefaultScopes.Add("profile");
+    options.ProviderOptions.DefaultScopes.Add("email");
+    options.ProviderOptions.DefaultScopes.Add("offline_access");
     options.ProviderOptions.ResponseType = "code";
     options.ProviderOptions.AdditionalProviderParameters.Add("audience", builder.Configuration["Auth0:Audience"]);
 });

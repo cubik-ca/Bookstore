@@ -48,4 +48,9 @@ public static class Events
         public int? ProvinceId { get; set; }
         public string? Name { get; set; }
     }
+
+    public class Removed
+    {
+        public string? Id { get; set; }
+    }
 }

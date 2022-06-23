@@ -20,7 +20,7 @@ public static class EventStoreExtensions
         long version,
         params object[] events)
     {
-        var user = principal?.Identity?.Name;
+        var user = principal?.FindFirst("email")?.Value;
         if (!events.Any()) return Task.CompletedTask;
         var preparedEvents = events
             .Select(

@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ulid" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Framework\Bookstore.EventSourcing\Bookstore.EventSourcing.csproj" />
     <ProjectReference Include="..\..\Message\Bookstore.Message.Subject\Bookstore.Message.Subject.csproj" />
   </ItemGroup>

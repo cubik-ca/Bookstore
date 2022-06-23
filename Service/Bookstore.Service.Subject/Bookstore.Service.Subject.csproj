@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-Bookstore.Service.Subject-F1753A93-DE0B-4195-AD44-60A382DCF0CA</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="EventStore.Client.Grpc.Streams" Version="22.0.0" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
+        <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\Bookstore.Domain.Subject\Bookstore.Domain.Subject.csproj" />
+      <ProjectReference Include="..\..\Framework\Bookstore.EventSourcing\Bookstore.EventSourcing.csproj" />
+      <ProjectReference Include="..\..\Framework\Bookstore.MongoDB\Bookstore.MongoDB.csproj" />
+      <ProjectReference Include="..\..\Framework\Bookstore.Services\Bookstore.Services.csproj" />
+      <ProjectReference Include="..\Bookstore.Service.Subject.Shared\Bookstore.Service.Subject.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="appsettings.Development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+</Project>

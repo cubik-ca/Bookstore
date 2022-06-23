@@ -10,12 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="8.0.3" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\Domain\Bookstore.Domain.Subject\Bookstore.Domain.Subject.csproj" />
+    <ProjectReference Include="..\..\..\..\..\Framework\Bookstore.WebApi\Bookstore.WebApi.csproj" />
     <ProjectReference Include="..\Client\Bookstore.Client.csproj" />
     <ProjectReference Include="..\Shared\Bookstore.Shared.csproj" />
   </ItemGroup>

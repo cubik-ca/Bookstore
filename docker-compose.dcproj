@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>cfdaf244-3514-4009-bed8-8f3d990b91be</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger/index.html</DockerServiceUrl>
     <DockerServiceName>bookstore.ui.web.bookstore.server</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

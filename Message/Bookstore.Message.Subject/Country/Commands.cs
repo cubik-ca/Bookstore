@@ -48,4 +48,9 @@ public static class Commands
         public int? ProvinceId { get; set; }
         public string? Name { get; set; }
     }
+
+    public class Remove
+    {
+        public string? Id { get; set; }
+    }
 }
