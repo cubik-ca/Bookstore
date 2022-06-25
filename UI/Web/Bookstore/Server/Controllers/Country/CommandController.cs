@@ -17,6 +17,10 @@ public class CommandController : CommandApi<Domain.Subject.Country.Country>
     [HttpPost]
     public async Task<IActionResult> Create(Commands.Create command)
         => await HandleCommand(command);
+
+    [HttpPut]
+    public async Task<IActionResult> AddProvince(Commands.AddProvince command)
+        => await HandleCommand(command);
     
     [HttpDelete]
     public async Task<IActionResult> Remove([FromQuery] Commands.Remove command)

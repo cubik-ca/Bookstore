@@ -20,8 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Domain\Bookstore.Domain.Subject\Bookstore.Domain.Subject.csproj" />
-    <ProjectReference Include="..\..\..\..\..\Framework\Bookstore.WebApi\Bookstore.WebApi.csproj" />
+    <ProjectReference Include="..\..\..\..\Domain\Bookstore.Domain.Subject\Bookstore.Domain.Subject.csproj" />
+    <ProjectReference Include="..\..\..\..\Framework\Bookstore.WebApi\Bookstore.WebApi.csproj" />
+    <ProjectReference Include="..\..\..\..\SharedKernel\Bookstore.SharedKernel\Bookstore.SharedKernel.csproj" />
     <ProjectReference Include="..\Client\Bookstore.Client.csproj" />
     <ProjectReference Include="..\Shared\Bookstore.Shared.csproj" />
   </ItemGroup>

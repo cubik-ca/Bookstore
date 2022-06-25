@@ -37,19 +37,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bookstore", "Bookstore", "{
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CFDAF244-3514-4009-BED8-8F3D990B91BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Server", "UI\Web\Bookstore\Bookstore\Server\Bookstore.Server.csproj", "{08522B6E-ABD8-4225-82C1-E13A9E8DC9C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Server", "UI\Web\Bookstore\Server\Bookstore.Server.csproj", "{08522B6E-ABD8-4225-82C1-E13A9E8DC9C3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Client", "UI\Web\Bookstore\Bookstore\Client\Bookstore.Client.csproj", "{280BA04C-7ECD-47BF-B195-AF44D6ADFBF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Client", "UI\Web\Bookstore\Client\Bookstore.Client.csproj", "{280BA04C-7ECD-47BF-B195-AF44D6ADFBF8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Shared", "UI\Web\Bookstore\Bookstore\Shared\Bookstore.Shared.csproj", "{8A07770B-09C3-4737-86E4-816920361A8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Shared", "UI\Web\Bookstore\Shared\Bookstore.Shared.csproj", "{8A07770B-09C3-4737-86E4-816920361A8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.MongoDB", "Framework\Bookstore.MongoDB\Bookstore.MongoDB.csproj", "{9B4FD1D7-55C4-4B38-A03B-F7F5D3FD5360}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{C44D396D-D880-42A8-9AE3-E1850EB8AF17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Service.Subject", "Service\Bookstore.Service.Subject\Bookstore.Service.Subject.csproj", "{25D4CEAE-1D41-4343-8B65-AD10E70C47DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Service.Subject", "Service\Bookstore.Service.Subject\Bookstore.Service.Subject.csproj", "{25D4CEAE-1D41-4343-8B65-AD10E70C47DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore.Service.Subject.Shared", "Service\Bookstore.Service.Subject.Shared\Bookstore.Service.Subject.Shared.csproj", "{DF6F38D4-26C3-4263-9917-791BC1B4B433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bookstore.Service.Subject.Shared", "Service\Bookstore.Service.Subject.Shared\Bookstore.Service.Subject.Shared.csproj", "{DF6F38D4-26C3-4263-9917-791BC1B4B433}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

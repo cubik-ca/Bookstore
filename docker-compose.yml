@@ -5,6 +5,8 @@ services:
     image: rabbitmq:3.10-management
     ports:
       - 15672:15672
+    networks:
+      - bookstore
   eventstore:
     image: eventstore/eventstore:21.10.0-buster-slim
     environment:
@@ -21,6 +23,8 @@ services:
         source: c:/EventStoreData
         target: /var/lib/eventstore
       - eventstore-volume-logs:/var/log/eventstore
+    networks:
+      - bookstore
   bookstore.service.subject:
     image: ${DOCKER_REGISTRY-}bookstoreservicesubject
     build:
@@ -32,21 +36,25 @@ services:
     depends_on:
       - eventstore
       - rabbitmq
+    networks:
+      - bookstore
   bookstore.ui.web.server:
+    labels:
+      - traefik.http.routers.bookstore.rule=Host(`bookstore.local`)
+      - traefik.http.routers.bookstore.tls=true
+      - traefik.http.routers.bookstore.entrypoints=websecure
     image: ${DOCKER_REGISTRY-}bookstoreuiwebserver
     build:
       context: .
-      dockerfile: UI/Web/Bookstore/Bookstore/Server/Dockerfile
-    ports:
-      - 80:80
-      - 443:443
+      dockerfile: UI/Web/Bookstore/Server/Dockerfile
     volumes:
       - "${USERPROFILE-C:/Users/Default}/.aspnet/https:/https:ro"
     environment:
       - DOTNET_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=aspnet
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - traefik_default
+      - bookstore
     restart: always
     depends_on:
       - bookstore.service.subject
@@ -54,3 +62,9 @@ services:
 
 volumes:
   eventstore-volume-logs:
+
+networks:
+  traefik_default:
+    external: true
+  bookstore:
+    external: true
